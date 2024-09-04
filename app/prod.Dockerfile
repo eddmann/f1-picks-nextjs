@@ -4,6 +4,7 @@ COPY package*.json ./
 COPY prisma ./
 RUN --mount=type=cache,target=/root/.npm npm ci
 COPY ./ ./
+RUN rm prisma/seed.ts
 RUN --mount=type=cache,target=/build/.next/cache npm run build
 
 FROM public.ecr.aws/lambda/nodejs:20 AS runner
